@@ -8,6 +8,7 @@ from keybert import KeyBERT
 from transformers import pipeline  # type: ignore[attr-defined]
 
 from src.core import Settings
+from src.streaming.pipelines import TextAnalysisPipeline
 from src.streaming.routers import router
 
 settings = Settings()
@@ -34,6 +35,14 @@ async def lifespan(context: ContextRepo) -> tp.AsyncGenerator[None, None]:
     context.set_global(
         "keybert",
         KeyBERT(model="all-MiniLM-L6-v2"),
+    )
+    context.set_global(
+        "text_analysis_pipeline",
+        TextAnalysisPipeline(
+            context.get("spacy_language"),
+            context.get("sentiment_pipeline"),
+            context.get("keybert"),
+        ),
     )
 
     yield
