@@ -1,13 +1,21 @@
 import typing as tp
 
-from src.streaming.schemas import TopicEventSchema
+from src.streaming.dtos import ContentEventDTO
+from src.streaming.dtos.topic_event import TopicEventDTO
 
 __all__ = [
-    "convert_data_to_topic_event_transformer",
+    "convert_content_to_topic_event_transformer",
 ]
 
 
-def convert_data_to_topic_event_transformer(
-    data: dict[str, tp.Any],
-) -> TopicEventSchema:
-    return TopicEventSchema.model_validate(data)
+def convert_content_to_topic_event_transformer(
+    content_event: ContentEventDTO,
+    topic_data: dict[str, tp.Any],
+) -> TopicEventDTO:
+    return TopicEventDTO.model_validate(
+        {
+            "user_id": content_event.user_id,
+            "content_event_uuid": content_event.content_event_uuid,
+            **topic_data,
+        }
+    )
