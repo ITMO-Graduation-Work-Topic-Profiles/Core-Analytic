@@ -9,7 +9,13 @@ __all__ = ["TextAnalysisPipeline"]
 
 
 class TextAnalysisPipeline:
-    _KEEP_ENTITY_LABELS: set[str] = {"PERSON", "ORG", "GPE", "PRODUCT", "EVENT"}
+    _KEEP_ENTITY_LABELS: set[str] = {
+        "PERSON",
+        "ORG",
+        "GPE",
+        "PRODUCT",
+        "EVENT",
+    }
 
     def __init__(
         self,
@@ -35,13 +41,16 @@ class TextAnalysisPipeline:
             "keywords": keywords,
         }
 
-    def _extract_sentiment(self, content: str) -> dict[str, tp.Any]:
-        s = self._sentiment_pipeline(content)[0]
-        sentiment = {
-            "name": s["label"],
-            "weight": round(s["score"], 3),
-        }
-        return sentiment
+    def _extract_sentiment(self, content: str) -> list[dict[str, tp.Any]]:
+        spans = self._sentiment_pipeline(content)
+        sentiments = [
+            {
+                "name": s["label"],
+                "weight": round(s["score"], 3),
+            }
+            for s in spans
+        ]
+        return sentiments
 
     def _extract_entities(self, content: str) -> list[dict[str, tp.Any]]:
         doc = self._spacy_language(content)

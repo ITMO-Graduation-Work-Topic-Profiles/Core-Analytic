@@ -27,7 +27,7 @@ class TopicEventDTO(BaseModel):
     topic_event_uuid: uuid.UUID = Field(default_factory=uuid.uuid4)
     content_event_uuid: uuid.UUID
     user_id: str
-    keywords: list[KeywordTopicEventSchema]
-    entities: list[EntityTopicEventSchema]
-    sentiment: SentimentTopicEventSchema
+    keywords: list[KeywordTopicEventSchema] = Field(default_factory=list)
+    entities: list[EntityTopicEventSchema] = Field(default_factory=list)
+    sentiments: list[SentimentTopicEventSchema] = Field(default_factory=list)
     timestamp: datetime = Field(default_factory=utcnow)
