@@ -1,6 +1,6 @@
-from .entity import EntityTopicEventSchema
-from .keyword import KeywordTopicEventSchema
-from .sentiment import SentimentTopicEventSchema
+from .entities import EntityTopicEventSchema
+from .keywords import KeywordTopicEventSchema
+from .sentiments import SentimentTopicEventSchema
 
 __all__ = [
     "EntityTopicEventSchema",
