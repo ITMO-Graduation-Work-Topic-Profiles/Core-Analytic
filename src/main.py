@@ -8,7 +8,7 @@ from keybert import KeyBERT
 from transformers import pipeline  # type: ignore[attr-defined]
 
 from src.core import Settings
-from src.streaming.pipelines import TextAnalysisPipeline
+from src.pipelines import TextAnalysisPipeline
 from src.streaming.routers import router
 
 settings = Settings()

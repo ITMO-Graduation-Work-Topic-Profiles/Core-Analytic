@@ -1,7 +1,6 @@
 import typing as tp
 
-from src.streaming.dtos import ContentEventDTO
-from src.streaming.dtos.topic_event import TopicEventDTO
+from src.dtos import ContentEventDTO, TopicEventDTO
 
 __all__ = [
     "convert_content_to_topic_event_transformer",

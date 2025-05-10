@@ -1,8 +1,8 @@
 from faststream import Context
 from faststream.kafka import KafkaRouter
 
-from src.streaming.dtos import ContentEventDTO, TopicEventDTO
-from src.streaming.pipelines import TextAnalysisPipeline
+from src.dtos import ContentEventDTO, TopicEventDTO
+from src.pipelines import TextAnalysisPipeline
 from src.streaming.transformers import convert_content_to_topic_event_transformer
 
 __all__ = ["router"]
