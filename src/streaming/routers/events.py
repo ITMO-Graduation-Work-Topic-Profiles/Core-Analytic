@@ -14,8 +14,8 @@ router = KafkaRouter(prefix="events-")
 @router.subscriber("content")
 @router.publisher("topic")
 def transmit_content_to_topic_event_handler(
-    content_event: ContentEventDTO,
+    incoming_content_event: ContentEventDTO,
     text_analysis_pipeline: TextAnalysisPipeline = Context(),
 ) -> TopicEventDTO:
-    data = text_analysis_pipeline.analyze(content_event.content)
-    return convert_content_to_topic_event_transformer(content_event, data)
+    data = text_analysis_pipeline.analyze(incoming_content_event.content)
+    return convert_content_to_topic_event_transformer(incoming_content_event, data)
