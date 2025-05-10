@@ -15,7 +15,7 @@ settings = Settings()
 
 
 @asynccontextmanager
-async def lifespan(context: ContextRepo) -> tp.AsyncGenerator[None, None]:
+async def lifespan(context: ContextRepo) -> tp.AsyncIterator[None]:
     context.set_global(
         "spacy_language",
         spacy.load(
