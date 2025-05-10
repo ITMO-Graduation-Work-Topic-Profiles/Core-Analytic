@@ -36,7 +36,7 @@ class TextAnalysisPipeline:
         keywords = self._extract_keywords(content)
 
         return {
-            "sentiment": sentiment,
+            "sentiments": sentiment,
             "entities": entities,
             "keywords": keywords,
         }
