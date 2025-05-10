@@ -1,6 +1,6 @@
 from faststream.kafka import KafkaRouter
 
-from .topic_event import router as topic_event_router
+from .events import router as topic_event_router
 
 __all__ = ["router"]
 
