@@ -1,14 +1,15 @@
 import typing as tp
 from contextlib import asynccontextmanager
 
-import spacy
 from faststream import ContextRepo, FastStream
 from faststream.kafka import KafkaBroker
-from keybert import KeyBERT
-from transformers import pipeline  # type: ignore[attr-defined]
 
 from src.core import Settings
-from src.pipelines import TextAnalysisPipeline
+from src.pipelines import (
+    EntitiesPipeline,
+    KeywordsPipeline,
+    SentimentsPipeline,
+)
 from src.streaming.routers import router
 
 settings = Settings()
@@ -16,34 +17,9 @@ settings = Settings()
 
 @asynccontextmanager
 async def lifespan(context: ContextRepo) -> tp.AsyncIterator[None]:
-    context.set_global(
-        "spacy_language",
-        spacy.load(
-            "en_core_web_sm",
-            disable=["parser"],
-        ),
-    )
-    context.set_global(
-        "sentiment_pipeline",
-        pipeline(
-            "sentiment-analysis",
-            model="distilbert-base-uncased-finetuned-sst-2-english",
-            device=-1,
-            batch_size=16,
-        ),
-    )
-    context.set_global(
-        "keybert",
-        KeyBERT(model="all-MiniLM-L6-v2"),
-    )
-    context.set_global(
-        "text_analysis_pipeline",
-        TextAnalysisPipeline(
-            context.get("spacy_language"),
-            context.get("sentiment_pipeline"),
-            context.get("keybert"),
-        ),
-    )
+    context.set_global("entities_pipeline", EntitiesPipeline())
+    context.set_global("sentiments_pipeline", SentimentsPipeline())
+    context.set_global("keywords_pipeline", KeywordsPipeline())
 
     yield
 

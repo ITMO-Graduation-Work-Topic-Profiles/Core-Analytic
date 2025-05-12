@@ -9,12 +9,17 @@ __all__ = [
 
 def convert_content_to_topic_attributes_event_transformer(
     content_event: ContentEventDTO,
-    topic_attributes: dict[str, tp.Any],
+    *,
+    entities: tp.Sequence[tp.Mapping[str, tp.Any]],
+    sentiments: tp.Sequence[tp.Mapping[str, tp.Any]],
+    keywords: tp.Sequence[tp.Mapping[str, tp.Any]],
 ) -> TopicAttributesEventDTO:
     return TopicAttributesEventDTO.model_validate(
         {
             "user_id": content_event.user_id,
             "content_event_uuid": content_event.content_event_uuid,
-            **topic_attributes,
+            "entities": entities,
+            "sentiments": sentiments,
+            "keywords": keywords,
         }
     )
