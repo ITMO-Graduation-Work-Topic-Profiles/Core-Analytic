@@ -12,7 +12,7 @@ from src.utils.dates import utcnow
 
 __all__ = [
     "ContentEventDTO",
-    "TopicEventDTO",
+    "TopicAttributesEventDTO",
 ]
 
 
@@ -23,8 +23,8 @@ class ContentEventDTO(BaseModel):
     timestamp: datetime = Field(default_factory=utcnow)
 
 
-class TopicEventDTO(BaseModel):
-    topic_event_uuid: uuid.UUID = Field(default_factory=uuid.uuid4)
+class TopicAttributesEventDTO(BaseModel):
+    topic_attributes_event_uuid: uuid.UUID = Field(default_factory=uuid.uuid4)
     content_event_uuid: uuid.UUID
     user_id: str
     keywords: list[KeywordTopicEventSchema] = Field(default_factory=list)

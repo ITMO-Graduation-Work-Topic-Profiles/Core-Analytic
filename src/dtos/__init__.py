@@ -1,6 +1,6 @@
-from .events import ContentEventDTO, TopicEventDTO
+from .events import ContentEventDTO, TopicAttributesEventDTO
 
 __all__ = [
     "ContentEventDTO",
-    "TopicEventDTO",
+    "TopicAttributesEventDTO",
 ]
