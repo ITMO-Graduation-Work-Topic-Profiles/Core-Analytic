@@ -3,10 +3,10 @@ import typing as tp
 from keybert import KeyBERT
 from sklearn.feature_extraction.text import CountVectorizer
 
-__all__ = ["KeywordsPipeline"]
+__all__ = ["KeyBERTKeywordsPipeline"]
 
 
-class KeywordsPipeline:
+class KeyBERTKeywordsPipeline:
     def __init__(
         self,
         model_name: str = "all-MiniLM-L6-v2",

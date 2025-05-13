@@ -1,9 +1,13 @@
-from .entities import EntitiesPipeline
-from .keywords import KeywordsPipeline
-from .sentiments import SentimentsPipeline
+from .entities import SpacyEntitiesPipeline
+from .keywords import KeyBERTKeywordsPipeline
+from .labels import WikipediaLabelsPipeline
+from .sentiments import TransformerSentimentsPipeline
+from .topics import BERTopicTopicsPipeline
 
 __all__ = [
-    "SentimentsPipeline",
-    "EntitiesPipeline",
-    "KeywordsPipeline",
+    "TransformerSentimentsPipeline",
+    "SpacyEntitiesPipeline",
+    "KeyBERTKeywordsPipeline",
+    "BERTopicTopicsPipeline",
+    "WikipediaLabelsPipeline",
 ]

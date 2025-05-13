@@ -2,7 +2,11 @@ from faststream import Context
 from faststream.kafka import KafkaRouter
 
 from src.dtos import ContentEventDTO, TopicAttributesEventDTO
-from src.pipelines import EntitiesPipeline, KeywordsPipeline, SentimentsPipeline
+from src.pipelines import (
+    KeyBERTKeywordsPipeline,
+    SpacyEntitiesPipeline,
+    TransformerSentimentsPipeline,
+)
 from src.streaming.transformers import (
     convert_content_to_topic_attributes_event_transformer,
 )
@@ -18,9 +22,9 @@ router = KafkaRouter(prefix="events-")
 def transmit_content_event_to_topic_attributes_event_handler(
     incoming_content_event: ContentEventDTO,
     *,
-    entities_pipeline: EntitiesPipeline = Context(),
-    sentiments_pipeline: SentimentsPipeline = Context(),
-    keywords_pipeline: KeywordsPipeline = Context(),
+    entities_pipeline: SpacyEntitiesPipeline = Context(),
+    sentiments_pipeline: TransformerSentimentsPipeline = Context(),
+    keywords_pipeline: KeyBERTKeywordsPipeline = Context(),
 ) -> TopicAttributesEventDTO:
     return convert_content_to_topic_attributes_event_transformer(
         incoming_content_event,

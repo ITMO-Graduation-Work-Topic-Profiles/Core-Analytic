@@ -12,6 +12,11 @@ dependencies = [
     "transformers>=4.51.3",
     "faststream[cli,kafka]>=0.5.40",
     "scikit-learn>=1.6.1",
+    "bertopic>=0.17.0",
+    "sentence-transformers>=4.1.0",
+    "hdbscan>=0.8.40",
+    "umap-learn>=0.5.7",
+    "httpx>=0.28.1",
 ]
 
 [dependency-groups]

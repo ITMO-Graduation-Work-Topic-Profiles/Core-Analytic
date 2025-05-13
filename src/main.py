@@ -6,9 +6,11 @@ from faststream.kafka import KafkaBroker
 
 from src.core import Settings
 from src.pipelines import (
-    EntitiesPipeline,
-    KeywordsPipeline,
-    SentimentsPipeline,
+    BERTopicTopicsPipeline,
+    KeyBERTKeywordsPipeline,
+    SpacyEntitiesPipeline,
+    TransformerSentimentsPipeline,
+    WikipediaLabelsPipeline,
 )
 from src.streaming.routers import router
 
@@ -17,9 +19,11 @@ settings = Settings()
 
 @asynccontextmanager
 async def lifespan(context: ContextRepo) -> tp.AsyncIterator[None]:
-    context.set_global("entities_pipeline", EntitiesPipeline())
-    context.set_global("sentiments_pipeline", SentimentsPipeline())
-    context.set_global("keywords_pipeline", KeywordsPipeline())
+    context.set_global("entities_pipeline", SpacyEntitiesPipeline())
+    context.set_global("sentiments_pipeline", TransformerSentimentsPipeline())
+    context.set_global("keywords_pipeline", KeyBERTKeywordsPipeline())
+    context.set_global("topics_pipeline", BERTopicTopicsPipeline())
+    context.set_global("labels_pipeline", WikipediaLabelsPipeline())
 
     yield
 

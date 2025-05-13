@@ -3,10 +3,10 @@ import typing as tp
 
 import spacy
 
-__all__ = ["EntitiesPipeline"]
+__all__ = ["SpacyEntitiesPipeline"]
 
 
-class EntitiesPipeline:
+class SpacyEntitiesPipeline:
     def __init__(
         self,
         model_name: str = "en_core_web_sm",
