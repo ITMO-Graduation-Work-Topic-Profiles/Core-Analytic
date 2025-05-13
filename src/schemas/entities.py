@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
-__all__ = ["EntityTopicEventSchema"]
+__all__ = ["EntityTopicAttributesEventSchema"]
 
 
-class EntityTopicEventSchema(BaseModel):
+class EntityTopicAttributesEventSchema(BaseModel):
     category: str
     name: str
     weight: float

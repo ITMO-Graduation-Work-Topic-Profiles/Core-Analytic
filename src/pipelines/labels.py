@@ -48,12 +48,13 @@ class WikipediaLabelsPipeline:
                     convert_to_tensor=True,
                 )
                 score = util.cos_sim(words_embed, wiki_embed).item()
-                labels.append(
-                    {
-                        "title": title,
-                        "score": round(score, 3),
-                    }
-                )
+                if score > 0:
+                    labels.append(
+                        {
+                            "text": title,
+                            "score": round(score, 3),
+                        }
+                    )
 
             labels.sort(key=lambda x: x["score"], reverse=True)
 

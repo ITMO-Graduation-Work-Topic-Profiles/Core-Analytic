@@ -70,13 +70,20 @@ class BERTopicTopicsPipeline:
         for topic_id in set(topics):
             if topic_id == -1:
                 continue
-            words = [w for w, _ in topic_model.get_topic(topic_id)]
+
+            words = [
+                {"text": text, "score": round(score, 3)}
+                for text, score in topic_model.get_topic(topic_id)
+            ]
+
+            words.sort(key=lambda x: x["score"], reverse=True)
+
             confidence = float(
                 np.mean([p for t, p in zip(topics, probs) if t == topic_id])
             )
             topics_info.append(
                 {
-                    "topics": words,
+                    "words": words,
                     "confidence": confidence,
                 }
             )

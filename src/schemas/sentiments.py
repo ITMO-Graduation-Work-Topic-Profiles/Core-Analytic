@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
-__all__ = ["SentimentTopicEventSchema"]
+__all__ = ["SentimentTopicAttributesEventSchema"]
 
 
-class SentimentTopicEventSchema(BaseModel):
+class SentimentTopicAttributesEventSchema(BaseModel):
     name: str
     weight: float
