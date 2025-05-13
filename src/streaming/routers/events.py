@@ -57,7 +57,10 @@ async def transmit_user_content_event_to_topic_profile_event_handler(
     )
 
     topics_labels = await asyncio.gather(
-        *[labels_pipeline.define_labels(t["words"]) for t in topics]
+        *[
+            labels_pipeline.define_labels([w["name"] for w in t["words"]])
+            for t in topics
+        ]
     )
 
     return convert_user_content_event_to_topic_profile_event_transformer(
