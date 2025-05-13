@@ -1,6 +1,4 @@
 import asyncio
-import typing as tp
-from pprint import pprint
 
 from faststream import Context
 from faststream.kafka import KafkaRouter
@@ -47,8 +45,8 @@ def transmit_content_event_to_topic_attributes_event_handler(
 
 
 @router.subscriber("userContent")
-@router.publisher("topicsProfile")
-def transmit_user_content_event_to_topics_profile_event_handler(
+@router.publisher("topicProfile")
+async def transmit_user_content_event_to_topic_profile_event_handler(
     incoming_user_content_event: UserContentEventDTO,
     *,
     topics_pipeline: BERTopicTopicsPipeline = Context(),
@@ -58,9 +56,8 @@ def transmit_user_content_event_to_topics_profile_event_handler(
         [ce.content for ce in incoming_user_content_event.content_events]
     )
 
-    topics_labels: list[list[dict[str, tp.Any]]] = asyncio.gather(  # type: ignore
-        [labels_pipeline.define_labels(t["words"]) for t in topics],
-        return_exceptions=True,
+    topics_labels = await asyncio.gather(
+        *[labels_pipeline.define_labels(t["words"]) for t in topics]
     )
 
     return convert_user_content_event_to_topic_profile_event_transformer(
