@@ -51,12 +51,12 @@ class WikipediaLabelsPipeline:
                 if score > 0:
                     labels.append(
                         {
-                            "text": title,
-                            "score": round(score, 3),
+                            "name": title,
+                            "weight": round(score, 3),
                         }
                     )
 
-            labels.sort(key=lambda x: x["score"], reverse=True)
+            labels.sort(key=lambda x: x["weight"], reverse=True)
 
             return labels
 

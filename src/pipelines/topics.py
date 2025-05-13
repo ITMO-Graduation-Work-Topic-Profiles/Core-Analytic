@@ -72,14 +72,17 @@ class BERTopicTopicsPipeline:
                 continue
 
             words = [
-                {"text": text, "score": round(score, 3)}
+                {
+                    "name": text,
+                    "weight": round(float(score), 3),
+                }
                 for text, score in topic_model.get_topic(topic_id)
             ]
 
-            words.sort(key=lambda x: x["score"], reverse=True)
+            words.sort(key=lambda x: x["weight"], reverse=True)
 
-            confidence = float(
-                np.mean([p for t, p in zip(topics, probs) if t == topic_id])
+            confidence = round(
+                float(np.mean([p for t, p in zip(topics, probs) if t == topic_id])), 3
             )
             topics_info.append(
                 {
